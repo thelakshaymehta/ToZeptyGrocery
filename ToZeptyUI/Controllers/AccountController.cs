@@ -79,7 +79,7 @@ namespace ToZeptyUI.Controllers
             }
             else
             {
-                // If authentication fails, you may want to show an error message.
+                // auth fails
                 ModelState.AddModelError(string.Empty, "Invalid username or password");
                 return View(loginView);
             }
@@ -105,7 +105,7 @@ namespace ToZeptyUI.Controllers
             }
             else
             {
-                // If authentication fails, you may want to show an error message.
+                // auth fails
                 ModelState.AddModelError(string.Empty, "Invalid username or password");
                 return View(loginView);
             }
@@ -145,7 +145,7 @@ namespace ToZeptyUI.Controllers
 
             if (!ModelState.IsValid)
             {
-                // Return the view with validation errors
+
                 return View("Registration", user);
             }
 

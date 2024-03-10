@@ -1,12 +1,12 @@
-﻿using ToZeptyDAL.Data;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
+using ToZeptyDAL.Data;
+using ToZeptyDAL.Interface;
 
 namespace ToZeptyDAL.Repository
 {
@@ -32,7 +32,6 @@ namespace ToZeptyDAL.Repository
             return test;
         }
 
-
         public Order GetOrderById(int orderId)
         {
             return _context.Orders.Find(orderId);
@@ -57,34 +56,29 @@ namespace ToZeptyDAL.Repository
 
         public IEnumerable<Order> GetOrdersByCustomerId(int userId)
         {
-            IEnumerable<Order> orders = _context.Orders
-           .Include(o => o.OrderDetails)
-           .Where(o => o.CustomerId == userId)
-           .ToList();
+            IEnumerable<Order> orders = _context
+                .Orders.Include(o => o.OrderDetails)
+                .Where(o => o.CustomerId == userId)
+                .ToList();
 
             return orders;
         }
 
         public IEnumerable<Order> GetIncompleteOrders()
         {
-            IEnumerable<Order> orders = _context.Orders
-                .Include(o => o.OrderDetails)
+            IEnumerable<Order> orders = _context
+                .Orders.Include(o => o.OrderDetails)
                 .Where(o => o.OrderDetails.Any(od => od.OrderStatus < 4))
                 .ToList();
-            // Selecting only one OrderDetail per OrderId
             foreach (var order in orders)
             {
-                // Filter and assign only one OrderDetail per OrderId
-                order.OrderDetails = order.OrderDetails
-                    .Where(od => od.OrderStatus < 4)
+                order.OrderDetails = order
+                    .OrderDetails.Where(od => od.OrderStatus < 4)
                     .GroupBy(od => od.OrderId)
                     .Select(g => g.First())
                     .ToList();
             }
             return orders;
         }
-
-
-
     }
 }

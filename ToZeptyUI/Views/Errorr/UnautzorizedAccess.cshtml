@@ -8,14 +8,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Unauthorized Access</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Your custom styles go here -->
     <style>
         body {
-            background-color: #808080; /* Bootstrap background color */
+            background-color: #808080; 
         }
 
         .error-container {
@@ -30,13 +27,13 @@
         }
 
         h2 {
-            font-size: 3em; /* Larger font size */
-            color: #dc3545; /* Bootstrap danger color */
+            font-size: 3em; 
+            color: #dc3545; 
         }
 
         h1 {
-            font-size: 2em; /* Larger font size */
-            color: #007bff; /* Bootstrap primary color */
+            font-size: 2em; 
+            color: #007bff; 
         }
     </style>
 </head>
@@ -63,13 +60,12 @@
 
             if (seconds > 0) {
                 document.getElementById('countdown').textContent = seconds;
-                setTimeout(countdown, 1000); // Update every 1 second
+                setTimeout(countdown, 1000);
             } else {
                 window.location.href = '@Url.Action("Logout", "Account")';
             }
         }
 
-        // Start the countdown
         countdown();
     </script>
 

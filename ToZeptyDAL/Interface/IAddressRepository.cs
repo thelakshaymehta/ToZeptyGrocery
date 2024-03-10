@@ -6,6 +6,5 @@ namespace ToZeptyDAL.Interface
     {
         IEnumerable<Address> GetAddressesByUserId(int userId);
         void SaveAddress(Address address);
-        // Add other methods as needed
     }
 }

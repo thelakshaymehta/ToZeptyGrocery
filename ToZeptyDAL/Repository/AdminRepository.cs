@@ -51,7 +51,6 @@ namespace ToZeptyDAL.Repository
 
             if (existingAdmin != null)
             {
-                // Update the properties of the existing admin with the values from the input admin
                 existingAdmin.FirstName = admin.FirstName;
                 existingAdmin.LastName = admin.LastName;
                 existingAdmin.Email = admin.Email;

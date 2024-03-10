@@ -1,20 +1,26 @@
-﻿using ToZeptyDAL.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using ToZeptyDAL.Data;
 
 namespace ToZeptyUI
 {
     public class WebRoleProvider : RoleProvider
     {
-      private readonly  ZeptyDbContext context;
+        private readonly ZeptyDbContext context;
+
         public WebRoleProvider()
         {
-                    context = new ZeptyDbContext();
+            context = new ZeptyDbContext();
         }
-        public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public override string ApplicationName
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
@@ -43,23 +49,22 @@ namespace ToZeptyUI
 
         public override string[] GetRolesForUser(string username)
         {
-            var result = from user in context.Customers
+            var result =
+                from user in context.Customers
+                join role in context.Roles on user.RoleId equals role.RoleId
+                where user.UserName == username
+                select role.Name;
 
-                         join role in context.Roles on user.RoleId equals role.RoleId
-                         where user.UserName == username
-                         select role.Name;
-
-            // Check if the user is not an employee, then check in the Admins table
             if (!result.Any())
             {
-                result = from admin in context.Admins
-                         join role in context.Roles on admin.RoleId equals role.RoleId
-                         where admin.UserName == username
-                         select role.Name;
+                result =
+                    from admin in context.Admins
+                    join role in context.Roles on admin.RoleId equals role.RoleId
+                    where admin.UserName == username
+                    select role.Name;
             }
 
             return result.ToArray();
-            //throw new NotImplementedException();
         }
 
         public override string[] GetUsersInRole(string roleName)

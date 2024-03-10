@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ToZeptyDAL.Interface
 {
-    public interface IProductRepository {
-
-         int SaveProductChanges();
+    public interface IProductRepository
+    {
+        int SaveProductChanges();
         Product CreateProduct(Product product);
         Product GetProductById(int productId);
         IEnumerable<Product> GetAllProducts();
@@ -17,5 +17,4 @@ namespace ToZeptyDAL.Interface
 
         Product DeleteProduct(int productId);
     }
-    }
-
+}

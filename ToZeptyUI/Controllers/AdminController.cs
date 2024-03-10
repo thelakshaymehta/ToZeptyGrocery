@@ -154,12 +154,12 @@ namespace ToZeptyUI.Controllers
         {
             if (adminRepository.AdminExistsEmail(User.Email, User.Id))
             {
-                // Email already registered
+
                 ModelState.AddModelError("Email", "Email already registered with us.");
             }
             if (!ModelState.IsValid)
             {
-                // Return the same view with validation errors
+
                 return View("EditAdmin", User);
             }
 

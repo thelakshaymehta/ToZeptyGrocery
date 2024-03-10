@@ -42,8 +42,7 @@ namespace ToZeptyUI.Controllers
                 PhoneNumber = customer.PhoneNumber,
                 UserName = customer.UserName,
                 Password = customer.Password,
-                ConfirmPassword = customer.Password  // Assuming you store hashed passwords
-                                                     // Add other properties as needed
+                ConfirmPassword = customer.Password
             };
         }
     }

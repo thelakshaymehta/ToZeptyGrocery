@@ -1,10 +1,10 @@
-﻿using ToZeptyDAL.Data;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToZeptyDAL.Data;
+using ToZeptyDAL.Interface;
 
 namespace ToZeptyDAL.Repository
 {
@@ -17,27 +17,30 @@ namespace ToZeptyDAL.Repository
             _context = context;
         }
 
-
         public bool cartStatus()
         {
             return _context.ChangeTracker.HasChanges();
         }
+
         public Cart GetCartItemByCartIdAndCustomerId(int cartId, int customerId)
         {
-            return _context.Carts
-                .FirstOrDefault(c => c.CartId == cartId && c.CusomerId == customerId);
+            return _context.Carts.FirstOrDefault(c =>
+                c.CartId == cartId && c.CusomerId == customerId
+            );
         }
+
         public List<Cart> GetCartItemsByCustomerId(int? customerId)
         {
-            return _context.Carts
-                .Where(c => c.CusomerId == customerId)
-                .ToList();
+            return _context.Carts.Where(c => c.CusomerId == customerId).ToList();
         }
+
         public Cart GetCartItemByProductIdAndCustomerId(int productId, int customerId)
         {
-            return _context.Carts
-                .FirstOrDefault(c => c.ProductId == productId && c.CusomerId == customerId);
+            return _context.Carts.FirstOrDefault(c =>
+                c.ProductId == productId && c.CusomerId == customerId
+            );
         }
+
         // Create
         public Cart CreateCartItem(Cart cartItem)
         {
@@ -51,10 +54,12 @@ namespace ToZeptyDAL.Repository
         {
             return _context.Carts.Find(cartItemId);
         }
+
         public IEnumerable<Cart> GetCartItemById(int[] cartIds)
         {
             return _context.Carts.Where(c => cartIds.Contains(c.CartId)).ToList();
         }
+
         public IEnumerable<Cart> GetAllCartItems()
         {
             return _context.Carts.ToList();
@@ -67,7 +72,6 @@ namespace ToZeptyDAL.Repository
 
             if (existingCartItem != null)
             {
-                // Update the properties of the existing cart item with the values from the input cart item
                 existingCartItem.CusomerId = cartItem.CusomerId;
                 existingCartItem.ProductName = cartItem.ProductName;
                 existingCartItem.Quantity = cartItem.Quantity;
@@ -94,11 +98,11 @@ namespace ToZeptyDAL.Repository
 
             return cartItem;
         }
+
         public int cartSaveChanges()
         {
             return _context.SaveChanges();
         }
-
 
         public void DeleteCartItems(List<Cart> cartItems)
         {

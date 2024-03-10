@@ -13,13 +13,12 @@ namespace ToZeptyDAL
     {
         public int Id { get; set; }
 
-     
         [MaxLength(50)]
         public string FirstName { get; set; }
 
-      
         [MaxLength(50)]
         public string LastName { get; set; }
+
         [MaxLength(255)]
         [Index("IX_UniqueAdminEmail", IsUnique = true)]
         public string Email { get; set; }
@@ -28,13 +27,11 @@ namespace ToZeptyDAL
         [MaxLength(255)]
         [Index("IX_UniqueAdminUserName", IsUnique = true)]
         public string UserName { get; set; }
+
         [DataType(DataType.Password)]
         [MaxLength(255)]
         public string Password { get; set; }
-
-
         public int RoleId { get; set; }
         public virtual Role Role { get; set; }
-
     }
 }

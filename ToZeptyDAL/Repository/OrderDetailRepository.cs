@@ -1,11 +1,11 @@
-﻿using ToZeptyDAL.Data;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToZeptyDAL.Data;
+using ToZeptyDAL.Interface;
 
 namespace ToZeptyDAL.Repository
 {
@@ -36,8 +36,7 @@ namespace ToZeptyDAL.Repository
 
         public int GetOrderDetailByOrderId(int orderId)
         {
-            var orderDetail = _context.OrderDetails
-                  .FirstOrDefault(od => od.OrderId == orderId);
+            var orderDetail = _context.OrderDetails.FirstOrDefault(od => od.OrderId == orderId);
             return orderDetail.OrderStatus;
         }
 
@@ -52,7 +51,6 @@ namespace ToZeptyDAL.Repository
             _context.SaveChanges();
         }
 
-
         public void DeleteOrderDetail(OrderDetail orderDetail)
         {
             _context.OrderDetails.Remove(orderDetail);
@@ -64,7 +62,9 @@ namespace ToZeptyDAL.Repository
             try
             {
                 // Get all order details with the specified orderId
-                List<OrderDetail> orderDetails = _context.OrderDetails.Where(od => od.OrderId == orderId).ToList();
+                List<OrderDetail> orderDetails = _context
+                    .OrderDetails.Where(od => od.OrderId == orderId)
+                    .ToList();
 
                 if (orderDetails.Any())
                 {
@@ -96,4 +96,3 @@ namespace ToZeptyDAL.Repository
         }
     }
 }
-

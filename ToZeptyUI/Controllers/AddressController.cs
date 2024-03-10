@@ -1,11 +1,11 @@
-﻿using ToZeptyUI.Models;
-using ToZeptyDAL;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ToZeptyDAL;
+using ToZeptyDAL.Interface;
+using ToZeptyUI.Models;
 
 namespace ToZeptyUI.Controllers
 {
@@ -17,12 +17,15 @@ namespace ToZeptyUI.Controllers
         private readonly ICartRepository cartRepository;
 
         // GET: Address
-        public AddressController(IAddressRepository addressRepository
-            , ICartRepository cartRepository)
+        public AddressController(
+            IAddressRepository addressRepository,
+            ICartRepository cartRepository
+        )
         {
             AddressRepository = addressRepository;
             this.cartRepository = cartRepository;
         }
+
         public ActionResult Address()
         {
             return View();
@@ -44,10 +47,13 @@ namespace ToZeptyUI.Controllers
                 CustomerId = customerId
             };
 
-            // After successfully adding the address, you can set a TempData flag
             AddressRepository.SaveAddress(saverAddress);
             TempData["AddressAdded"] = true;
-            return RedirectToAction("PlaceOrder", "Customer", new { cartIds = Convert.ToInt32(null), customerId = customerId });
+            return RedirectToAction(
+                "PlaceOrder",
+                "Customer",
+                new { cartIds = Convert.ToInt32(null), customerId = customerId }
+            );
         }
     }
 }

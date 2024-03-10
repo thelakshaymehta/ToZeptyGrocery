@@ -135,15 +135,11 @@
     <script>
         function resetForm(formId) {
             var form = document.getElementById(formId);
-
-            // Reset the form fields
             form.reset();
-
-            // Clear validation messages
             var validationMessages = form.querySelectorAll('[data-valmsg-for]');
             for (var i = 0; i < validationMessages.length; i++) {
-                validationMessages[i].innerHTML = ''; // Clear validation messages
-                validationMessages[i].style.display = 'none'; // Hide the error message container
+                validationMessages[i].innerHTML = ''; 
+                validationMessages[i].style.display = 'none'; 
             }
         }
     </script>

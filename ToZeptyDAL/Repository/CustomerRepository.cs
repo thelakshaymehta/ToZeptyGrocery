@@ -1,10 +1,10 @@
-﻿using ToZeptyDAL.Data;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToZeptyDAL.Data;
+using ToZeptyDAL.Interface;
 
 namespace ToZeptyDAL.Repository
 {
@@ -21,6 +21,7 @@ namespace ToZeptyDAL.Repository
         {
             return _context.Customers.FirstOrDefault(x => x.UserName == userName);
         }
+
         // Create
         public Customer CreateCustomer(Customer customer)
         {
@@ -39,11 +40,14 @@ namespace ToZeptyDAL.Repository
         {
             return _context.Customers.ToList();
         }
+
         public Cart GetCartItemByProductIdAndCustomerId(int productId, int customerId)
         {
-            return _context.Carts
-                .FirstOrDefault(c => c.ProductId == productId && c.CusomerId == customerId);
+            return _context.Carts.FirstOrDefault(c =>
+                c.ProductId == productId && c.CusomerId == customerId
+            );
         }
+
         // Update
         public Customer UpdateCustomer(Customer customer)
         {
@@ -84,6 +88,7 @@ namespace ToZeptyDAL.Repository
         {
             return _context.SaveChanges();
         }
+
         public bool CustomerExists(string userName)
         {
             return _context.Customers.Any(a => a.UserName == userName);
@@ -96,8 +101,11 @@ namespace ToZeptyDAL.Repository
 
         public Customer GetCustomerByUserNamePhone(string UserName, string PhoneNumber)
         {
-            return _context.Customers.FirstOrDefault(a => a.UserName == UserName && a.PhoneNumber == PhoneNumber);
+            return _context.Customers.FirstOrDefault(a =>
+                a.UserName == UserName && a.PhoneNumber == PhoneNumber
+            );
         }
+
         public bool CustomerExistsEmail(string UserEmail, int id)
         {
             var veriefyUser = _context.Customers.FirstOrDefault(a => a.Email == UserEmail);
@@ -105,7 +113,6 @@ namespace ToZeptyDAL.Repository
             if (veriefyUser != null && veriefyUser.Id != id)
             {
                 return true;
-
             }
             else
             {

@@ -33,7 +33,7 @@
     <tbody>
         @foreach (var order in Model.GroupBy(o => o.OrderId))
         {
-            var isFirstRow = true; // Flag to track if it's the first row for the order
+            var isFirstRow = true; 
             foreach (var product in order)
             {
                 <tr class="@(isFirstRow ? "parent-row" : "child-row order-" + order.Key)">
@@ -44,18 +44,15 @@
                     <td>@product.Price</td>
                     <td>@(product.Quantity * product.Price)</td>
                 </tr>
-                isFirstRow = false; // Update the flag after the first row
+                isFirstRow = false; 
             }
             <tr class="show-btn-row">
                 <td colspan="7">
                     <button class="show-btn btn btn-dark" data-order-id="@order.Key">Expand</button>
-
-                    
                         <form action="@Url.Action("DeleteOrder", "Customer")" method="post" class="delete-order-form">
                             <input type="hidden" name="orderId" value="@order.Key" />
                             <button style="margin-top:1%;" type="submit" class="btn btn-danger">Cancel Order</button>
                         </form>
-                   
                 </td>
             </tr>
         }
@@ -66,11 +63,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('.child-row').hide(); // Hide all child rows by default
+            $('.child-row').hide(); 
             $('.show-btn').click(function () {
                 var orderId = $(this).data('order-id');
-                $('.child-row.order-' + orderId).toggle(); // Toggle visibility of child rows with the same order ID
-                // Change button text based on visibility
+                $('.child-row.order-' + orderId).toggle(); 
                 $(this).text(function (_, text) {
                     return text === "Expand" ? "Close" : "Expand";
                 });

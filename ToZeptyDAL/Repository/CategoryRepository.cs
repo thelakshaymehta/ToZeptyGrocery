@@ -1,16 +1,17 @@
-﻿using ToZeptyDAL.Data;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToZeptyDAL.Data;
+using ToZeptyDAL.Interface;
 
 namespace ToZeptyDAL.Repository
 {
     public class CategoryRepository : ICategory
     {
         private readonly ZeptyDbContext _dbContext;
+
         public CategoryRepository(ZeptyDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -18,7 +19,9 @@ namespace ToZeptyDAL.Repository
 
         public bool CategoryExists(string categoryName)
         {
-            Category category = _dbContext.Categories.FirstOrDefault(cat => cat.CategoryName == categoryName);
+            Category category = _dbContext.Categories.FirstOrDefault(cat =>
+                cat.CategoryName == categoryName
+            );
             if (category != null)
                 return true;
             return false;
@@ -26,14 +29,16 @@ namespace ToZeptyDAL.Repository
 
         public bool CategoryExists(string categoryName, int id)
         {
-            Category category = _dbContext.Categories.FirstOrDefault(cat => cat.CategoryName == categoryName);
+            Category category = _dbContext.Categories.FirstOrDefault(cat =>
+                cat.CategoryName == categoryName
+            );
             if (category != null)
             {
-                if (category.CategoryId == id) return false;
+                if (category.CategoryId == id)
+                    return false;
             }
 
             return true;
-
         }
 
         public void DeleteCategory(Category categoryToDelete)
@@ -76,6 +81,5 @@ namespace ToZeptyDAL.Repository
             }
             return updatecategory;
         }
-
     }
 }

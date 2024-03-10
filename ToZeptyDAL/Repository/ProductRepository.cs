@@ -1,10 +1,10 @@
-﻿using ToZeptyDAL.Data;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToZeptyDAL.Data;
+using ToZeptyDAL.Interface;
 
 namespace ToZeptyDAL.Repository
 {
@@ -25,7 +25,6 @@ namespace ToZeptyDAL.Repository
             return product;
         }
 
-
         // Read
         public Product GetProductById(int productId)
         {
@@ -35,7 +34,6 @@ namespace ToZeptyDAL.Repository
         public IEnumerable<Product> GetAllProducts()
         {
             return _context.Products.ToList();
-
         }
 
         // Update
@@ -45,7 +43,6 @@ namespace ToZeptyDAL.Repository
 
             if (existingProduct != null)
             {
-                // Update the properties of the existing product with the values from the input product
                 existingProduct.Name = product.Name;
                 existingProduct.Description = product.Description;
                 existingProduct.Price = product.Price;
@@ -70,6 +67,7 @@ namespace ToZeptyDAL.Repository
 
             return product;
         }
+
         public int SaveProductChanges()
         {
             return _context.SaveChanges();

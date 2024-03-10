@@ -26,9 +26,7 @@ namespace ToZeptyDAL
 
         public int CategoryId { get; set; }
 
-        // Navigation property
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
     }
-
 }

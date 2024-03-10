@@ -1,11 +1,11 @@
-﻿using ToZeptyDAL.Data;
-using ToZeptyDAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToZeptyDAL.Data;
+using ToZeptyDAL.Interface;
 
 namespace ToZeptyDAL.Repository
 {
@@ -17,6 +17,7 @@ namespace ToZeptyDAL.Repository
         {
             _dbContext = dbContext;
         }
+
         public IEnumerable<Address> GetAddressesByUserId(int userId)
         {
             return _dbContext.Addresses.Where(a => a.CustomerId == userId).ToList();

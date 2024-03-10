@@ -21,13 +21,13 @@ namespace UnitTesting
         private ZeptyDbContext _dbContext;
         private IProductRepository _productRepository;
         private Product ProductItem;
-       [SetUp]
+        [SetUp]
         public void Setup()
         {
             _dbContext = new ZeptyDbContext();
             _productRepository = new ProductRepository(_dbContext);
 
-             ProductItem = new Product
+            ProductItem = new Product
             {
                 ProductQuantity = 10,
                 ProductId = 3,
@@ -54,14 +54,11 @@ namespace UnitTesting
         [Test]
         public void RemoveCartItem_ShouldRemoveFromDatabase()
         {
-            // Arrang
             var fakeObject = new Mock<IProductRepository>();
             fakeObject.Setup(x => x.DeleteProduct(It.IsAny<int>())).Returns(ProductItem);
 
             var cartRepository = fakeObject.Object;
-            // Act
             var result = cartRepository.DeleteProduct(ProductItem.ProductId);
-            //note that this test is not actually interacting with a real database. It's checking how the method behaves based on the setup provided by Moq.
             Assert.That(result, Is.EqualTo(result));
         }
 
@@ -69,30 +66,24 @@ namespace UnitTesting
         [Test]
         public void GetProductById_ShouldReturnProduct()
         {
-            // Arrange
             var fakeObject = new Mock<IProductRepository>();
-            var productId = 10; // Replace with a valid product ID for your test
-         
+            var productId = 10;
+
 
             fakeObject.Setup(x => x.GetProductById(It.IsAny<int>())).Returns(ProductItem);
 
             var productRepository = fakeObject.Object;
-
-            // Act
             var result = productRepository.GetProductById(productId);
-
-            // Assert
             Assert.That(result, Is.EqualTo(ProductItem));
         }
 
         [Test]
         public void UpdateProduct_ShouldUpdateInDatabase()
         {
-            // Arrange
             var fakeObject = new Mock<IProductRepository>();
             var updatedProduct = new Product
             {
-                ProductId = 10, // Replace with a valid product ID for your test
+                ProductId = 10,
                 Name = "Updated Product",
                 Description = "Updated description",
                 Price = 39.99m,
@@ -102,11 +93,7 @@ namespace UnitTesting
             fakeObject.Setup(x => x.UpdateProduct(It.IsAny<Product>())).Returns(updatedProduct);
 
             var productRepository = fakeObject.Object;
-
-            // Act
             var result = productRepository.UpdateProduct(updatedProduct);
-
-            // Assert
             Assert.That(result, Is.EqualTo(updatedProduct));
         }
 

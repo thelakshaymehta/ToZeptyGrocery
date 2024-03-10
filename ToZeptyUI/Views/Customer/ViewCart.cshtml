@@ -6,9 +6,8 @@
 }
 
 <style>
-    /* Custom styling for the Quantity column */
     .quantity-column {
-        width: 150px; /* Adjust the width as needed */
+        width: 150px; 
     }
 </style>
 
@@ -83,7 +82,6 @@
             var currentQuantity = parseInt(quantityInput.val());
             var newQuantity = currentQuantity + change;
 
-            // Ensure the quantity is not less than 1
             if (newQuantity < 1) {
                 alert('Minimum quantity is 1. To remove the product, click "Remove".');
                 return;
@@ -91,32 +89,22 @@
 
             quantityInput.val(newQuantity);
 
-            // Make AJAX call to update the quantity and subtotal in the database
             $.ajax({
                 url: '/Customer/UpdateCartQuantity',
                 type: 'POST',
                 data: { cartId: cartId, newQuantity: newQuantity },
                 success: function (response) {
                     if (response.success) {
-                        // Update the subtotal on the UI
                         $('#subtotal_' + cartId).text(response.subtotal.toFixed(2));
-
-                        // Update the total price on the UI
                         var total = calculateTotal();
                         $('#totalPrice').text(total.toFixed(2));
                     } else {
-                        // Display the error message
                         alert(response.errorMessage);
-
-                        // If the quantity update is not successful, revert the input value
                         quantityInput.val(currentQuantity);
                     }
                 },
                 error: function () {
-                    // Handle AJAX error if needed
                     alert('An error occurred while updating the cart.');
-
-                    // If there is an AJAX error, revert the input value
                     quantityInput.val(currentQuantity);
                 }
             });

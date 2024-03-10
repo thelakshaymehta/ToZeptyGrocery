@@ -21,11 +21,9 @@ namespace UnitTesting
         public Product ProductItem;
         public Customer CustomerItem;
 
-
         [SetUp]
         public void TestInitialize()
         {
-       // Create instances of Product, Customer, and Cart for testing
             ProductItem = new Product
             {
                 ProductQuantity = 9,
@@ -39,16 +37,15 @@ namespace UnitTesting
             CustomerItem = new Customer
             {
                 Id = 3,
-                UserName ="Kusuma",
-                Email= "Kusuma@gmail.com",
-                Password="Kusuma@123"
-                // Add other properties as needed
+                UserName = "Kusuma",
+                Email = "Kusuma@gmail.com",
+                Password = "Kusuma@123"
             };
 
             CartItem = new Cart
             {
                 CartId = 10,
-                Customer=CustomerItem,
+                Customer = CustomerItem,
                 CusomerId = CustomerItem.Id,
                 ProductName = ProductItem.Name,
                 Quantity = 11,
@@ -60,7 +57,6 @@ namespace UnitTesting
         }
 
         [Test]
-        //[Ignore("This module pass all the test cases")]
         public void CreateCartItem_ShouldAddToDatabase()
         {
 
@@ -74,32 +70,24 @@ namespace UnitTesting
         [Test]
         public void GetCartItemById_ShouldReturnCartItem()
         {
-            // Arrange
             var fakeObject = new Mock<ICartRepository>();
             fakeObject.Setup(x => x.GetCartItemById(It.IsAny<int>())).Returns(CartItem);
 
             var cartRepository = fakeObject.Object;
 
-            // Act
             var result = cartRepository.GetCartItemById(1);
 
-            // Assert
             Assert.That(result, Is.EqualTo(CartItem));
         }
 
 
         [Test]
-        //[Ignore("Passed")]
         public void RemoveCartItem_ShouldRemoveFromDatabase()
         {
-            // Arrang
             var fakeObject = new Mock<ICartRepository>();
             fakeObject.Setup(x => x.RemoveCartItem(It.IsAny<Cart>())).Returns(CartItem);
-
             var cartRepository = fakeObject.Object;
-            // Act
             var result = cartRepository.RemoveCartItem(CartItem);
-            //note that this test is not actually interacting with a real database. It's checking how the method behaves based on the setup provided by Moq.
             Assert.That(result.CartId, Is.EqualTo(CartItem.CartId));
         }
     }

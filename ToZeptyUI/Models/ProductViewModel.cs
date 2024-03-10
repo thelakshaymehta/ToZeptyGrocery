@@ -11,8 +11,9 @@ namespace ToZeptyUI.Models
     {
         public int ProductId { get; set; }
 
-        [Required (ErrorMessage ="Enter Product Id:")]
-        public int  ProductQuantity { get; set; }
+        [Required(ErrorMessage = "Enter Product Id:")]
+        public int ProductQuantity { get; set; }
+
         [Required(ErrorMessage = "Product Name is required:")]
         public string Name { get; set; }
 
@@ -23,12 +24,9 @@ namespace ToZeptyUI.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive price")]
         public decimal Price { get; set; }
 
-        // Additional properties as needed for the view
-
         [Display(Name = "Product Image:")]
         public HttpPostedFileBase ImageFile { get; set; }
 
-        // Image file name (to store the file name in the database)
         public string ImageFileName { get; set; }
 
         [Required(ErrorMessage = "Category is required:")]
@@ -37,7 +35,6 @@ namespace ToZeptyUI.Models
 
         [Display(Name = "Category Name")]
         public string CategoryName { get; set; }
-        public IEnumerable<SelectListItem> Categories { get; set; } // Dropdown list items for categories
+        public IEnumerable<SelectListItem> Categories { get; set; }
     }
-
-} 
+}

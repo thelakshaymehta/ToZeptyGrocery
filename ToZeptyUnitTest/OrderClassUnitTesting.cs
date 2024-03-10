@@ -30,7 +30,7 @@ namespace UnitTesting
             mockDbContext = new Mock<ZeptyDbContext>();
             orderRepository = new OrderRepository(mockDbContext.Object);
 
-            Customer customer = new Customer { Id=10};
+            Customer customer = new Customer { Id = 10 };
 
             Orders = new Order
             {
@@ -57,7 +57,7 @@ namespace UnitTesting
                     }
                 }
             };
-          List<Order>  OrdersList = new List<Order>
+            List<Order> OrdersList = new List<Order>
         {
             new Order
             {
@@ -84,7 +84,6 @@ namespace UnitTesting
                     }
                 }
             },
-            // Additional orders
             new Order
             {
                 OrderId = 2,
@@ -160,19 +159,15 @@ namespace UnitTesting
         [Test]
         public void GetCartItemsByCustomerId_ShouldReturnCartItems()
         {
-            // Arrange
-            int customerId = 123; // Replace with the actual customer ID 
+            int customerId = 123;
 
             List<Order> tempForTesting = new List<Order>();
             tempForTesting.Add(Orders);
-            // Set up mock for IOrderRepository
             var fakeObject = new Mock<IOrderRepository>();
             fakeObject.Setup(x => x.GetOrdersByCustomerId(customerId)).Returns(tempForTesting);
 
-            // Act
-          var result = fakeObject.Object.GetOrdersByCustomerId(customerId);
+            var result = fakeObject.Object.GetOrdersByCustomerId(customerId);
 
-            // Assert
             ClassicAssert.IsNotNull(result);
             ClassicAssert.AreEqual(tempForTesting.Count(), result.Count());
         }
@@ -181,13 +176,7 @@ namespace UnitTesting
         [Test]
         public void DeleteOrder_ShouldCallRepositoryDelete()
         {
-            // Arrange
             var fakeObject = new Mock<IOrderRepository>();
-            // Ac
-
-            //(x => x.DeleteOrder(Orders)): This is a lambda expression specifying the method call you expect.In this case, it's saying "I expect the DeleteOrder method to be called with the argument Orders".
-
-            //Times.Once: This specifies how many times the method should be called. In this
             fakeObject.Object.DeleteOrder(Orders);
             fakeObject.Verify(x => x.DeleteOrder(Orders), Times.Once);
         }

@@ -1,7 +1,6 @@
 ﻿@model List<ToZeptyUI.Models.UpdateOrderStatusModel>
 
 <div class="container d-flex justify-content-center mt-5">
-    <!-- Single Card View for All Products -->
     <div class="card col-4">
         <div class="card-body">
             <h4 class="text-center">Update Order</h4>
@@ -21,8 +20,6 @@
                 </div>
                 <button type="submit" class="btn btn-outline-success">Update Status</button>
                 <a href="#" class="btn btn-outline-secondary mt-0">Back</a>
-                <!-- Add hidden input for orderId -->
-
                 <input type="hidden" name="orderId" value="@Model.First().OrderId" />
 
             </form>

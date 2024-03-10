@@ -10,7 +10,6 @@ namespace ToZeptyUI.Controllers
     [Authorize]
     public class ErrorrController : Controller
     {
-        // GET: Errorr
         public ActionResult PageNotFound()
         {
             return View();

@@ -1,11 +1,11 @@
-﻿using ToZeptyUI.Models;
-using ToZeptyDAL;
-using ToZeptyDAL.Interface;
-using ToZeptyDAL.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using ToZeptyDAL;
+using ToZeptyDAL.Interface;
+using ToZeptyDAL.Repository;
+using ToZeptyUI.Models;
 
 namespace ToZeptyUI.Controllers
 {
@@ -13,7 +13,6 @@ namespace ToZeptyUI.Controllers
     [Authorize(Roles = "Customer")]
     public class CustomerController : Controller
     {
-        //  private readonly ZeptyDbContext _context;
         private readonly ICustomerRepository customerRepository;
         private readonly IProductRepository productRepository;
         private readonly ICartRepository cartRepository;
@@ -21,10 +20,15 @@ namespace ToZeptyUI.Controllers
         private readonly IAddressRepository addressRepository;
         private readonly ICategory _categoryRepository;
 
-        public CustomerController(ICustomerRepository customerRepository, IProductRepository productRepository, ICartRepository cartRepository, IOrderRepository orderRepository, IAddressRepository addressRepository
-            , ICategory category)
+        public CustomerController(
+            ICustomerRepository customerRepository,
+            IProductRepository productRepository,
+            ICartRepository cartRepository,
+            IOrderRepository orderRepository,
+            IAddressRepository addressRepository,
+            ICategory category
+        )
         {
-            //   _context = new ZeptyDbContext();
             this.customerRepository = customerRepository;
             this.productRepository = productRepository;
             this.cartRepository = cartRepository;
@@ -32,12 +36,6 @@ namespace ToZeptyUI.Controllers
             this.addressRepository = addressRepository;
             this._categoryRepository = category;
         }
-
-
-        //public ActionResult Index()
-        //{
-        //   return View();
-        //}
 
         // GET: Customer
         public ActionResult Index()
@@ -49,13 +47,15 @@ namespace ToZeptyUI.Controllers
 
         public ActionResult DashBoard()
         {
-
             return View();
         }
+
         private ProductViewModel MapToViewModel(Product product)
         {
             IEnumerable<Category> categories = _categoryRepository.GetAllCategories();
-            string categoryName = categories.FirstOrDefault(c => c.CategoryId == product.CategoryId)?.CategoryName;
+            string categoryName = categories
+                .FirstOrDefault(c => c.CategoryId == product.CategoryId)
+                ?.CategoryName;
             return new ProductViewModel
             {
                 ProductId = product.ProductId,
@@ -65,9 +65,9 @@ namespace ToZeptyUI.Controllers
                 ImageFileName = product.ImageFileName,
                 CategoryName = categoryName,
                 CategoryId = product.CategoryId,
-                // Add other properties as needed
             };
         }
+
         public ActionResult AddToCart2(int productId)
         {
             var userId = Session["UserId"];
@@ -92,17 +92,16 @@ namespace ToZeptyUI.Controllers
                 ImageFileName = cart.ImageFileName,
                 Price = cart.Price,
                 CusomerId = Convert.ToInt32(userId)
-
             };
             if (ModelState.IsValid)
             {
-                // Add the item to the database or perform other business logic
                 cartRepository.CreateCartItem(addTocart);
 
                 return RedirectToAction("Index", "Customer");
             }
             return RedirectToAction("Index", "Customer");
         }
+
         public ActionResult AddToCart(int productId)
         {
             var userId = Session["UserId"] as int?;
@@ -112,17 +111,18 @@ namespace ToZeptyUI.Controllers
                 return RedirectToAction("Index", "Customer");
             }
             int temp = Convert.ToInt32(userId);
-            var existingCartItem = customerRepository.GetCartItemByProductIdAndCustomerId(productId, temp);
+            var existingCartItem = customerRepository.GetCartItemByProductIdAndCustomerId(
+                productId,
+                temp
+            );
 
             if (existingCartItem != null)
             {
-                // Product already exists in the cart, so update the quantity
                 existingCartItem.Quantity++;
                 cartRepository.cartSaveChanges();
             }
             else
             {
-                // Product is not in the cart, so add a new item
                 var cart = productRepository.GetProductById(productId);
 
                 if (cart == null)
@@ -138,30 +138,24 @@ namespace ToZeptyUI.Controllers
                     ImageFileName = cart.ImageFileName,
                     Price = cart.Price,
                     CusomerId = Convert.ToInt32(userId),
-                    ProductId = productId  // Add the ProductId property to your Cart model to store the product ID
+                    ProductId = productId
                 };
 
                 cartRepository.CreateCartItem(addTocart);
-
             }
-
 
             return RedirectToAction("Index", "Customer");
         }
 
         public ActionResult ViewCart(int? customerId)
         {
-            // Check if customerId is provided and is a valid value
             if (customerId == null)
             {
-                // You might want to redirect to a login page or show an error message
                 return RedirectToAction("CustomerLogin", "Account");
             }
             var loggedInUserId = (int?)Session["UserId"];
-            // Retrieve cart items for the specified customer
 
             var cartItems = cartRepository.GetCartItemsByCustomerId(customerId);
-            // Create a list of CartViewModel to pass to the view
             var carViewList = cartItems.Select(item => new CartViewModel
             {
                 CartId = item.CartId,
@@ -175,21 +169,24 @@ namespace ToZeptyUI.Controllers
             return View(carViewList);
         }
 
-
         [HttpPost]
         public ActionResult UpdateCartQuantity(int cartId, int newQuantity)
         {
-
             var cartItem = cartRepository.GetCartItemById(cartId);
             var product = productRepository.GetProductById(cartItem.ProductId);
             if (product.ProductQuantity < newQuantity)
             {
-                return Json(new { success = false, errorMessage = $"Only {product.ProductQuantity} available." });
+                return Json(
+                    new
+                    {
+                        success = false,
+                        errorMessage = $"Only {product.ProductQuantity} available."
+                    }
+                );
             }
 
             if (cartItem != null)
             {
-                // Update the quantity
                 cartItem.Quantity = newQuantity;
 
                 cartRepository.cartSaveChanges();
@@ -199,11 +196,8 @@ namespace ToZeptyUI.Controllers
             return Json(new { success = true });
         }
 
-
-
         public ActionResult PlaceOrder(int? customerId)
         {
-
             if (customerId == null)
             {
                 var existingOrder = Session["OrderViewModel"] as OrderViewModel;
@@ -221,16 +215,17 @@ namespace ToZeptyUI.Controllers
 
                 if (UserAddress != null && UserAddress.Any())
                 {
-                    // User has addresses, create the addressModel
-                    addressModel = UserAddress.Select(address => new AddressViewModel
-                    {
-                        Id = address.Id,
-                        Street = address.Street,
-                        City = address.City,
-                        PostalCode = address.PostalCode,
-                        State = address.State,
-                        Country = address.Country,
-                    }).ToList();
+                    addressModel = UserAddress
+                        .Select(address => new AddressViewModel
+                        {
+                            Id = address.Id,
+                            Street = address.Street,
+                            City = address.City,
+                            PostalCode = address.PostalCode,
+                            State = address.State,
+                            Country = address.Country,
+                        })
+                        .ToList();
                 }
                 var order = new OrderViewModel
                 {
@@ -239,21 +234,20 @@ namespace ToZeptyUI.Controllers
                     UserName = customer.UserName,
                     OrderDate = DateTime.Now,
                     Addresses = addressModel,
-                    OrderDetails = cartItems.Select(item => new OrderDetailsViewModel
-                    {
-
-                        ProductName = item.ProductName,
-                        Quantity = item.Quantity,
-                        Price = item.Price,
-                        Subtotal = item.Quantity * item.Price,
-                        ProductId = item.ProductId,
-                    }).ToList()
+                    OrderDetails = cartItems
+                        .Select(item => new OrderDetailsViewModel
+                        {
+                            ProductName = item.ProductName,
+                            Quantity = item.Quantity,
+                            Price = item.Price,
+                            Subtotal = item.Quantity * item.Price,
+                            ProductId = item.ProductId,
+                        })
+                        .ToList()
                 };
                 decimal total = cartItems.Sum(item => item.Quantity * item.Price);
                 order.TotalAmount = total;
                 Session["OrderViewModel"] = order;
-
-                // Other logic (e.g., payment processing) can be added here
 
                 return View(order);
             }
@@ -262,28 +256,26 @@ namespace ToZeptyUI.Controllers
         [HttpPost]
         public ActionResult OrderConfirm(int customerId)
         {
-            // Retrieve cart items
             var cartItems = cartRepository.GetCartItemsByCustomerId(customerId);
             var customer = customerRepository.GetCustomerById(customerId);
 
-            // Create an order
             var order = new Order
             {
                 OrderDate = DateTime.Now,
                 CustomerId = customer.Id,
                 TotalAmount = cartItems.Sum(item => item.Quantity * item.Price),
-                OrderDetails = cartItems.Select(item => new OrderDetail
-                {
-                    ProductName = item.ProductName,
-                    price = item.Price,
-                    Quantity = item.Quantity
-                }).ToList()
+                OrderDetails = cartItems
+                    .Select(item => new OrderDetail
+                    {
+                        ProductName = item.ProductName,
+                        price = item.Price,
+                        Quantity = item.Quantity
+                    })
+                    .ToList()
             };
 
-            // Save the order
             orderRepository.CreateOrder(order);
 
-            // Remove cart items
             foreach (var cartItem in cartItems)
             {
                 cartRepository.DeleteCartItem(cartItem.CartId);
@@ -292,7 +284,9 @@ namespace ToZeptyUI.Controllers
                     productRepository.DeleteProduct(cartItem.ProductId);
                 else
                 {
-                    int newQuantity = Convert.ToInt32(ProductItem.ProductQuantity) - Convert.ToInt32(cartItem.Quantity);
+                    int newQuantity =
+                        Convert.ToInt32(ProductItem.ProductQuantity)
+                        - Convert.ToInt32(cartItem.Quantity);
                     ProductItem.ProductQuantity = newQuantity;
                     productRepository.SaveProductChanges();
                 }
@@ -310,7 +304,6 @@ namespace ToZeptyUI.Controllers
                 TotalAmount = order.TotalAmount,
             };
 
-
             return View(message);
         }
 
@@ -324,18 +317,21 @@ namespace ToZeptyUI.Controllers
             int userId = (int)Session["UserId"];
             var orders = orderRepository.GetOrdersByCustomerId(userId);
             var productViewModels = orders
-           .SelectMany(od => od.OrderDetails.Select(detail => new OrderDetailsViewModel
-           {
-               OrderId = detail.OrderId,
-               OrderDate = detail.Order.OrderDate,
-               ProductId = detail.OrderId,
-               ProductName = detail.ProductName,
-               Quantity = detail.Quantity,
-               Price = detail.price
-           }))
-           .ToList();
+                .SelectMany(od =>
+                    od.OrderDetails.Select(detail => new OrderDetailsViewModel
+                    {
+                        OrderId = detail.OrderId,
+                        OrderDate = detail.Order.OrderDate,
+                        ProductId = detail.OrderId,
+                        ProductName = detail.ProductName,
+                        Quantity = detail.Quantity,
+                        Price = detail.price
+                    })
+                )
+                .ToList();
             return View(productViewModels);
         }
+
         public ActionResult ViewProfile(int customerId = 1)
         {
             CustomerModel viewProfile = GetCustomerProfile(customerId);
@@ -364,12 +360,10 @@ namespace ToZeptyUI.Controllers
         {
             if (customerRepository.CustomerExistsEmail(customer.Email, customer.Id))
             {
-                // Email already registered
                 ModelState.AddModelError("Email", "Email already registered with us.");
             }
             if (!ModelState.IsValid)
             {
-                // Return the same view with validation errors
                 return View("EditCustomer", customer);
             }
             else
@@ -383,11 +377,13 @@ namespace ToZeptyUI.Controllers
                     ToUpdateProfile.PhoneNumber = customer.PhoneNumber;
 
                     customerRepository.customerSAveChanges();
-
                 }
-                return RedirectToAction("ViewProfile", "Customer", new { customerId = ToUpdateProfile.Id });
+                return RedirectToAction(
+                    "ViewProfile",
+                    "Customer",
+                    new { customerId = ToUpdateProfile.Id }
+                );
             }
-
         }
 
         public CustomerModel GetCustomerProfile(int customerId = 1)
@@ -406,10 +402,8 @@ namespace ToZeptyUI.Controllers
         }
 
         [HttpPost]
-
         public ActionResult DeleteOrder(int orderId)
         {
-            // Check if the order exists
             var order = orderRepository.GetOrderById(orderId);
             if (order == null)
             {
@@ -417,7 +411,6 @@ namespace ToZeptyUI.Controllers
                 return RedirectToAction("ViewOrderedProducts");
             }
 
-            // Check if the logged-in user is authorized to delete this order
             int userId = Convert.ToInt32(Session["UserId"]);
             if (order.CustomerId != userId)
             {
@@ -425,30 +418,23 @@ namespace ToZeptyUI.Controllers
                 return RedirectToAction("ViewOrderedProducts");
             }
 
-            // Delete the order
             orderRepository.DeleteOrder(order);
 
             TempData["SuccessMessage"] = "Order deleted successfully.";
             return RedirectToAction("ViewOrderedProducts");
         }
 
-
-
-
         [HttpPost]
         public ActionResult RemoveCartItem(int cartId)
         {
-            // Ensure the user is logged in
             if (Session["UserId"] == null)
             {
                 TempData["ErrorMessage"] = "User not logged in.";
                 return RedirectToAction("ViewCart");
             }
 
-            // Retrieve the user's ID from the session
             int userId = Convert.ToInt32(Session["UserId"]);
 
-            // Find the cart item for the specified cartId and userId
             var cartItem = cartRepository.GetCartItemByCartIdAndCustomerId(cartId, userId);
 
             if (cartItem == null)
@@ -457,16 +443,9 @@ namespace ToZeptyUI.Controllers
                 return RedirectToAction("ViewCart", "Customer");
             }
 
-            // Remove the cart item
             cartRepository.DeleteCartItem(cartItem.CartId);
-
-            // Save changes and check for errors
-
 
             return RedirectToAction("ViewCart", "Customer", new { customerId = userId });
         }
     }
-
-
-
 }

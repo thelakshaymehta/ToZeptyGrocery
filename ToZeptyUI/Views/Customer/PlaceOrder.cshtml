@@ -58,7 +58,6 @@
     else
     {
         <div id="newAddressForm">
-            @*<h4>Add New Address</h4>*@
             @Html.Partial("_Address", new ToZeptyUI.Models.AddressViewModel())
         </div>
     }
@@ -87,7 +86,6 @@
     </form>
 </div>
 
-<!-- Modal for card payment details -->
 <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="cardModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -98,7 +96,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Form for card details -->
                 <form id="cardDetailsForm">
                     <div class="form-group">
                         <label for="cardNumber">Card Number</label>
@@ -142,19 +139,14 @@
             $('#continueButton').click(function () {
                 var paymentMethod = $('#paymentMethod').val();
                 if (paymentMethod === 'cash') {
-                    // Proceed with the order
                     $('#placeOrderForm').submit();
                 } else if (paymentMethod === 'card') {
-                    // Show modal for card payment details
                     $('#cardModal').modal('show');
                 }
             });
 
-            // Form submission for card details
             $('#cardDetailsForm').submit(function (e) {
                 e.preventDefault();
-                // Handle card details submission
-                // Once card details are submitted, you can proceed with the order
                 $('#cardModal').modal('hide');
                 $('#placeOrderForm').submit();
             });

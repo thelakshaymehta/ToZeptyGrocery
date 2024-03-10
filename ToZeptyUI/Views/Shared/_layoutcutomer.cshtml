@@ -71,24 +71,21 @@
                 left: 0;
             }
 
-            /* Add a simple animation on touch */
             .sidenav ul li:active {
                 transform: scale(0.95);
             }
 
         .main-content {
-            margin-left: 230px; /* Adjust this margin based on your side navigation bar width */
-            /* Adjust padding as needed */
+            margin-left: 230px;
         }
 
         .sidenav ul li.divider {
-            border-bottom: 1px solid #555; /* Adjust color and style as needed */
-            /*  margin-bottom: 5px;*/ /* Adjust spacing between items */
+            border-bottom: 1px solid #555;
         }
 
         .sidenav-logo {
-            text-align: center; /* Center the logo */
-            margin-bottom: 20px; /* Add some space below the logo */
+            text-align: center;
+            margin-bottom: 20px;
         }
 
             .sidenav-logo img {
@@ -100,7 +97,7 @@
 
         .product-link:hover,
         .product-link:hover a {
-            background: white; /* Change to the desired hover color for li */
+            background: white;
             cursor: pointer;
             color: black;
         }
@@ -116,7 +113,7 @@
             }
 
                 .product-link a:hover {
-                    color: black; /* Change to the desired hover color */
+                    color: black;
                 }
 
         .icon {
@@ -126,50 +123,46 @@
     </style>
 </head>
 <body>
-    
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
 
-            <div class="container">
-                <a class="navbar-brand" href="@Url.Action("DashBoard", "Customer")">
-                    <img src="~/assets/Aadarsh/images/Minimal Grocery Market Logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                    ToZepty
-                </a>
-               
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
 
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("DashBoard", "Customer")">
+                <img src="~/assets/Aadarsh/images/Minimal Grocery Market Logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                ToZepty
+            </a>
 
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-
-                <!-- Right-aligned items -->
-                <div class="collapse navbar-collapse justify-content-end">
-                    <ul class="navbar-nav">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                @Html.ActionLink("Log out", "Logout", "Account", new { area = "" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item nav-link disabled text-dark me-5">
-                                Welcome, @User.Identity.Name!
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                @Html.ActionLink("Log in", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
-                            </li>
-                        }
-                    </ul>
-                </div>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Log out", "Logout", "Account", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item nav-link disabled text-dark me-5">
+                            Welcome, @User.Identity.Name!
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Log in", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
+                        </li>
+                    }
+                </ul>
             </div>
-        </nav>
-
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
         </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

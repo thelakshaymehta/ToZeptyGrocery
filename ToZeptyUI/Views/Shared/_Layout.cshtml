@@ -70,19 +70,11 @@
                 <img src="~/assets/Aadarsh/images/Minimal Grocery Market Logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top" >
                 ToZepty
             </a>
-            <!-- ToZepty on the left -->
-            @*<div>
-                @Html.ActionLink("ToZepty", "Index", "Home", new { area = "" }, new { @class = "navbar-brand bold-blue" })
-            </div>*@
-
-
-            <!-- Button for toggling the collapse -->
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Home and Login moved to the right -->
             <div class="ms-auto">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
@@ -126,11 +118,7 @@
     @RenderSection("scripts", required: false)
 
 
-    <!-- ~/assets/Aadarsh/js-files -->
-    <!-- jquery -->
     <script src="~/assets/Aadarsh/js/jquery-2.1.4.min.js"></script>
-    <!-- //jquery -->
-    <!-- popup modal (for signin & signup)-->
     <script src="~/assets/Aadarsh/js/jquery.magnific-popup.js"></script>
     <script>
         $(document).ready(function () {
@@ -147,15 +135,10 @@
             });
 
         });</script>
-    <!-- Large modal -->
-    <!-- <script>
-        $('#').modal('show');
-    </script> -->
-    <!-- //popup modal (for signin & signup)-->
-    <!-- cart-js -->
+   
     <script src="~/assets/Aadarsh/js/minicart.js"></script>
     <script>
-        paypalm.minicartk.render(); //use only unique class names other than paypal1.minicart1.Also Replace same class name in css and minicart.min.js
+        paypalm.minicartk.render(); 
 
         paypalm.minicartk.cart.on('checkout', function (evt) {
             var items = this.items(),
@@ -163,7 +146,6 @@
                 total = 0,
                 i;
 
-            // Count the number of each item in the cart
             for (i = 0; i < len; i++) {
                 total += items[i].get('quantity');
             }
@@ -173,8 +155,6 @@
                 evt.preventDefault();
             }
         });</script>
-    <!-- //cart-js -->
-    <!-- password-script -->
     <script>
         window.onload = function () {
             document.getElementById("password1").onchange = validatePassword;
@@ -188,13 +168,8 @@
                 document.getElementById("password2").setCustomValidity("Passwords Don't Match");
             else
                 document.getElementById("password2").setCustomValidity('');
-            //empty string means no validation error
         }</script>
-    <!-- //password-script -->
-    <!-- smoothscroll -->
     <script src="~/assets/Aadarsh/js/SmoothScroll.min.js"></script>
-    <!-- //smoothscroll -->
-    <!-- start-smooth-scrolling -->
     <script src="~/assets/Aadarsh/js/move-top.js"></script>
     <script src="~/assets/Aadarsh/js/easing.js"></script>
     <script>
@@ -207,27 +182,14 @@
                 }, 1000);
             });
         });</script>
-    <!-- //end-smooth-scrolling -->
-    <!-- smooth-scrolling-of-move-up -->
     <script>
         $(document).ready(function () {
-            /*
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-            */
+           
             $().UItoTop({
                 easingType: 'easeOutQuart'
             });
 
         });</script>
-    <!-- //smooth-scrolling-of-move-up -->
-    <!-- for bootstrap working -->
     <script src="~/assets/Aadarsh/js/bootstrap.js"></script>
-    <!-- //for bootstrap working -->
-    <!-- //js-files -->
 </body>
 </html>
