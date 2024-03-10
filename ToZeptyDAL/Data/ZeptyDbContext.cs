@@ -24,8 +24,6 @@ namespace ToZeptyDAL.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Configure the relationship between Customer and Order
-            //modelBuilder.Entity<Category>().Property(c => c.CategoryName).HasMaxLength(255);
 
             base.OnModelCreating(modelBuilder);
         }
