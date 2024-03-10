@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ToZeptyUI.Models.CategoryModel>
+
+@{
+    ViewBag.Title = "All Categories";
+}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="container">
+            <h2 class="text-center mb-4">All Categories</h2>
+            <div class="text-end me-3">
+                <button class="btn btn-success" onclick="location.href='@Url.Action("AddCategory","Category")'">
+                    Add New Category
+                </button>
+            </div>
+            <br />
+            <table class="table table-bordered ">
+                <thead class="thead-dark">
+                    <tr class="h-25">
+                        <th class="text-center w-25">Category ID</th>
+                        <th class="text-center w-25">Category Name</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@category.CategoryId</td>
+                            <td class="text-center">@category.CategoryName</td>
+                            <td class="text-center">
+                                @Html.ActionLink("Edit", "EditCategory", new { id = category.CategoryId }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Delete", "DeleteCategory", new { id = category.CategoryId }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            
+
+        </div>
+
+
+
+    </div>
+    <div class="col-md-2"></div>
+</div>

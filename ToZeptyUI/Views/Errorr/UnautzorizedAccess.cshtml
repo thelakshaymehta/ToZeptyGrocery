@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Unauthorized Access";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Unauthorized Access</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Your custom styles go here -->
+    <style>
+        body {
+            background-color: #808080; /* Bootstrap background color */
+        }
+
+        .error-container {
+            max-width: 43%;
+            display: flex;
+            margin-top: 10%;
+            padding: 29px;
+            background-color: #fff;
+            border: 5px solid #ced4da;
+            border-radius: 60px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 3em; /* Larger font size */
+            color: #dc3545; /* Bootstrap danger color */
+        }
+
+        h1 {
+            font-size: 2em; /* Larger font size */
+            color: #007bff; /* Bootstrap primary color */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container error-container">
+        <div class="col-12">
+
+            <h2 class="text-center ">Unauthorized Access</h2>
+            <h1 class="text-center text-bg-danger">You are being automatically logged out in <span id="countdown">10</span> seconds.</h1>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        var seconds = 10;
+
+        function countdown() {
+            seconds--;
+
+            if (seconds > 0) {
+                document.getElementById('countdown').textContent = seconds;
+                setTimeout(countdown, 1000); // Update every 1 second
+            } else {
+                window.location.href = '@Url.Action("Logout", "Account")';
+            }
+        }
+
+        // Start the countdown
+        countdown();
+    </script>
+
+</body>
+</html>

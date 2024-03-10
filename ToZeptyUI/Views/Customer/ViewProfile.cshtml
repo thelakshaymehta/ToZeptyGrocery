@@ -1,0 +1,45 @@
+﻿@model ToZeptyUI.Models.CustomerModel
+
+@{
+    ViewBag.Title = "Customer Details";
+}
+
+<div class="container">
+    <h2>Customer Details</h2>
+    <table class="table">
+        <tr>
+            <th>Customer ID</th>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td>@Model.FirstName</td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td>@Model.LastName</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Phone Number</th>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <th>User Name</th>
+            <td>@Model.UserName</td>
+        </tr>
+        <tr>
+            <th>Action</th>
+            <td class="">
+            <ul class="list-inline">
+                <li class="list-inline-item btn-outline-secondary text-center"><a  href="@Url.Action("Index", "Customer", new { customerId = @Model.Id })" class="btn btn-secondary">Back</a></li>
+                <li class="list-inline-item text-center  btn-outline-primary"><a href="@Url.Action("EditCustomer", "Customer", new { customerId = @Model.Id })" class="btn btn-primary">Edit</a></li>
+            </ul>
+                </td>
+        </tr>
+    </table>
+
+</div>

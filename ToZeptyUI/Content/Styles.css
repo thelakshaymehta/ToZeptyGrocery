@@ -1,0 +1,141 @@
+﻿
+.card1:hover {
+    transform: scale(1.05);
+}
+
+.xhov:hover {
+    transform: scale(1.05);
+}
+
+footer {
+    
+    justify-content: space-between;
+   
+    padding:20px;
+    background-color: lightcoral;
+    color: white;
+    flex-wrap: wrap;
+}
+
+.useful-links, .categories {
+    flex: 1;
+}
+
+.column {
+    font-size: 15px;
+    width: 30%;  Adjust the width for three columns 
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.ccolumn {
+    font-size: 15px;
+    width: 45%;  Adjust the width for three columns 
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.foot p {
+    text-align: center;
+}
+
+.card1 {
+    background-position: 0%;
+    background-size: cover;
+    height: 250px;
+    width: 200px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    transition: transform 0.3s;
+    box-shadow: 2px 2px 7px gray;
+    cursor: pointer;
+}
+
+.background-image {
+    background-image: url('https://img.freepik.com/free-photo/top-view-assortment-vegetables-paper-bag_23-2148853335.jpg?w=996&t=st=1703702607~exp=1703703207~hmac=b5ecb0a5295a46d70fe1b5cad8464b1560e139ef1b5bd0cf12da7edcd3780965');
+    background-size: cover;
+}
+
+.background-image2 {
+    background-image: url('https://img.freepik.com/free-vector/shopping-supermarket-cart-with-grocery-pictogram_1284-11697.jpg?w=740&t=st=1703702800~exp=1703703400~hmac=a2c75ae2c13d8e27ee12e410cddc9ad2803ab1ae7498970c75db9fdb6cce088f');
+    background-size: cover;
+}
+
+.cardmain {
+    background-image: url('https://www.cartly.ca/cdn/shop/files/Everyday_Specials_-_Banner_2000x.jpg?v=1633107773');
+    background-position: 0%;
+    background-size: cover;
+    height: 250px;
+    width: 1000px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px;
+    align-content: center;
+    text-align: center;
+    box-shadow: 2px 2px 7px gray;
+    cursor: pointer;
+}
+
+.cards1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.xhov {
+    background-position: 0%;
+    background-size: cover;
+    height:125px;
+    width: 250px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    transition: transform 0.3s;
+    box-shadow: 2px 2px 7px gray;
+    cursor: pointer;
+}
+
+
+.animated-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-step {
+    text-align: center;
+}
+
+    .progress-step i {
+        font-size: 20px;
+        color: #29feebe0; /* Change color as needed */
+    }
+
+    .progress-step span {
+        display: block;
+        font-size: 12px;
+        color: #333; /* Change color as needed */
+        margin-top: 5px;
+    }

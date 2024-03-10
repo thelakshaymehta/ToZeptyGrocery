@@ -1,0 +1,134 @@
+﻿@model IEnumerable<ToZeptyUI.Models.CartViewModel>
+
+@{
+    ViewBag.Title = "View Cart";
+    var userId = (int?)Session["UserId"];
+}
+
+<style>
+    /* Custom styling for the Quantity column */
+    .quantity-column {
+        width: 150px; /* Adjust the width as needed */
+    }
+</style>
+
+<div class="container">
+    <h2>Your Shopping Cart</h2>
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th class="quantity-column text-center">Quantity</th>
+                    <th class="text-center">Price</th>
+                    <th>Subtotal</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><img src="~/Images/@item.ImageFileName" alt="Product Image" style="max-width: 100px; max-height: 100px;" /></td>
+                        <td class="align-middle">@item.ProductName</td>
+                        <td class="quantity-column align-middle">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default font-weight-bold fw-50 text-danger" onclick="updateQuantity(@item.CartId, -1)">-</button>
+                                </span>
+                                <input type="text" class="form-control text-center font-weight-bold" id="quantity_@item.CartId" value="@item.Quantity" readonly />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default font-weight-bold text-success" onclick="updateQuantity(@item.CartId, 1)">+</button>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="text-center align-middle align-middle">@item.Price</td>
+                        <td class="align-middle subtotal-column" id="subtotal_@item.CartId">@(item.Quantity * item.Price)</td>
+                        <td class="align-middle">
+                            <form method="post" action="@Url.Action("RemoveCartItem", "Customer")">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="cartId" value="@item.CartId" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p>Total: &#8377;<span id="totalPrice">@Model.Sum(item => item.Quantity * item.Price)</span></p>
+
+        <form method="post" action="@Url.Action("PlaceOrder", "Customer")">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" name="customerId" value="@Session["UserId"]" />
+
+            <button type="submit" class="btn btn-danger">Place Order</button>
+        </form>
+        <a style =" margin-left: 11%; margin-top: -6%;"href="@Url.Action("Index", "Customer",new { customerId = userId }, null)" class="btn btn-primary">Add More Products</a>
+    }
+    else
+    {
+        <p> Oops! Your Cart is empty</p>
+    }
+</div>
+@section Scripts {
+    <script>
+        function updateQuantity(cartId, change) {
+            var quantityInput = $('#quantity_' + cartId);
+            var subTotal = $('#subtotal_' + cartId);
+            var currentQuantity = parseInt(quantityInput.val());
+            var newQuantity = currentQuantity + change;
+
+            // Ensure the quantity is not less than 1
+            if (newQuantity < 1) {
+                alert('Minimum quantity is 1. To remove the product, click "Remove".');
+                return;
+            }
+
+            quantityInput.val(newQuantity);
+
+            // Make AJAX call to update the quantity and subtotal in the database
+            $.ajax({
+                url: '/Customer/UpdateCartQuantity',
+                type: 'POST',
+                data: { cartId: cartId, newQuantity: newQuantity },
+                success: function (response) {
+                    if (response.success) {
+                        // Update the subtotal on the UI
+                        $('#subtotal_' + cartId).text(response.subtotal.toFixed(2));
+
+                        // Update the total price on the UI
+                        var total = calculateTotal();
+                        $('#totalPrice').text(total.toFixed(2));
+                    } else {
+                        // Display the error message
+                        alert(response.errorMessage);
+
+                        // If the quantity update is not successful, revert the input value
+                        quantityInput.val(currentQuantity);
+                    }
+                },
+                error: function () {
+                    // Handle AJAX error if needed
+                    alert('An error occurred while updating the cart.');
+
+                    // If there is an AJAX error, revert the input value
+                    quantityInput.val(currentQuantity);
+                }
+            });
+        }
+
+        function calculateTotal() {
+            var total = 0;
+            $('.subtotal-column').each(function () {
+                total += parseFloat($(this).text());
+            });
+            return total;
+        }
+    </script>
+}
+

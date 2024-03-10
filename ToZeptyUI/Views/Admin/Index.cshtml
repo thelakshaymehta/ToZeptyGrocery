@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Admin Home Page ";
+    var userId = (int?)Session["UserId"];
+}
+<section class="row mb-4" aria-labelledby="aspnetTitle">
+    <h1 id="title">Welcome to Admin Dashboard</h1>
+    <h2 class="lead"></h2>
+</section>
+
+<div class="row">
+    <section class="col-md-4 mb-4" aria-labelledby="gettingStartedTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/006/329/851/non_2x/3d-white-clipboard-task-management-todo-check-list-with-pencil-efficient-work-on-project-plan-fast-progress-level-up-concept-assignment-and-exam-checklist-icon-3d-render-on-pink-background-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Product List</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="col-md-4 mb-4" aria-labelledby="hostingTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://elements-cover-images-0.imgix.net/eebcdad8-1fbe-41a6-9e90-c8d421b98ae2?auto=compress%2Cformat&w=1370&fit=max&s=f6a6863387046949289017bdcb47d655" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("ViewMostOrderedProducts", "Admin")" class="btn btn-primary">Top 5 Most Ordered Products</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="col-md-4 mb-4" aria-labelledby="librariesTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/008/095/992/non_2x/unique-3d-purple-add-plus-medical-cross-round-button-design-icon-isolated-on-free-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("AddProduct", "Product")" class="btn btn-primary">Add New Product</a>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-4 mb-4" aria-labelledby="hostingTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://www.freepngimg.com/download/customer/2-2-customer-png-hd.png" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("ViewCustomers", "Admin")" class="btn btn-primary">View Customer List</a>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-4 mb-4" aria-labelledby="hostingTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/017/745/665/non_2x/food-and-meal-grocery-products-taste-assortment-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("Index", "Category", new { AdminId = userId })" class="btn btn-primary">All Category</a>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-4 mb-4" aria-labelledby="hostingTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/014/412/668/large_2x/warehouse-workers-check-the-inventory-levels-of-items-on-the-shelves-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("IncompleteOrders", "Order")" class="btn btn-primary">Manage Orders</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="col-md-4 mb-4" aria-labelledby="hostingTitle">
+        <div class="card" style="width: 18rem;">
+
+            <img src="https://static.vecteezy.com/system/resources/previews/014/412/668/large_2x/warehouse-workers-check-the-inventory-levels-of-items-on-the-shelves-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("ViewProfile", "Admin",new { AdminId = userId })" class="btn btn-primary">Your profile</a>
+            </div>
+        </div>
+    </section>
+
+
+</div>

@@ -1,0 +1,179 @@
+﻿
+@{
+    var userId = (int?)Session["UserId"];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ToZepty</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css" />
+    <script src="~/Content/DeliveryStatusBar.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-nav .nav-link {
+            padding: 10px 15px;
+            transition: background-color 0.2s;
+        }
+
+            .navbar-nav .nav-link:hover {
+                background-color: #333;
+            }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .sidenav {
+            width: 230px;
+            height: 100%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            padding-top: 20px;
+            transition: 0.5s;
+        }
+
+            .sidenav ul {
+                margin-top: 30px;
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .sidenav li {
+                text-decoration: none;
+                font-size: 18px;
+                color: #e9ecef;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: color 0.60s;
+            }
+
+                .sidenav li:hover {
+                    color: #f1f1f1;
+                }
+
+            .sidenav a {
+                text-decoration: none;
+            }
+
+            .sidenav:hover {
+                left: 0;
+            }
+
+            /* Add a simple animation on touch */
+            .sidenav ul li:active {
+                transform: scale(0.95);
+            }
+
+        .main-content {
+            margin-left: 230px; /* Adjust this margin based on your side navigation bar width */
+            /* Adjust padding as needed */
+        }
+
+        .sidenav ul li.divider {
+            border-bottom: 1px solid #555; /* Adjust color and style as needed */
+            /*  margin-bottom: 5px;*/ /* Adjust spacing between items */
+        }
+
+        .sidenav-logo {
+            text-align: center; /* Center the logo */
+            margin-bottom: 20px; /* Add some space below the logo */
+        }
+
+            .sidenav-logo img {
+                Width: 45%;
+                max-width: 110px;
+                height: auto;
+                border-radius: 50%
+            }
+
+        .product-link:hover,
+        .product-link:hover a {
+            background: white; /* Change to the desired hover color for li */
+            cursor: pointer;
+            color: black;
+        }
+
+        .product-link {
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+            .product-link a {
+                color: white;
+            }
+
+                .product-link a:hover {
+                    color: black; /* Change to the desired hover color */
+                }
+
+        .icon {
+            height: 30px;
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+    
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
+
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("DashBoard", "Customer")">
+                    <img src="~/assets/Aadarsh/images/Minimal Grocery Market Logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    ToZepty
+                </a>
+               
+
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+
+                <!-- Right-aligned items -->
+                <div class="collapse navbar-collapse justify-content-end">
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Log out", "Logout", "Account", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item nav-link disabled text-dark me-5">
+                                Welcome, @User.Identity.Name!
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Log in", "Login", "Account", new { area = "" }, new { @class = "nav-link" })
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

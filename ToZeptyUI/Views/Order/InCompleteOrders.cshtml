@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ToZeptyUI.Models.InCompleteOrderDetails>
+
+<div class="container w-75 mt-5">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Order ID</th>
+            <th class="text-center">Customer ID</th>
+            <th class="text-center"> Order Details ID</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td class="text-center">@order.OrderId</td>
+                <td class="text-center">@order.CustomerId</td>
+                <td class="text-center">@order.OrderDetails</td>
+                <td class="text-center">
+                    @{
+                        string statusText = string.Empty;
+                        switch (order.OrderStatus)
+                        {
+                            case 1:
+                                statusText = "Preparing";
+                                break;
+                            case 2:
+                                statusText = "Packing";
+                                break;
+                            case 3:
+                                statusText = "Out for Delivery";
+                                break;
+                            case 4:
+                                statusText = "Delivered";
+                                break;
+                            default:
+                                statusText = "Unknown";
+                                break;
+                        }
+                    }
+                    @statusText
+                </td>
+                <td class="text-center">
+                    <form method="get" action="@Url.Action("UpdateOrder", "Order", new { id = order.OrderId })">
+                        <button class="btn btn-outline-primary" type="submit">Update Order</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</div>

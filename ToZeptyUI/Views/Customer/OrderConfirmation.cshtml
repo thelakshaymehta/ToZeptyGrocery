@@ -1,0 +1,79 @@
+﻿@model ToZeptyUI.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "Order Confirmation";
+}
+
+<div class="container mt-5 mb-5">
+
+    <div class="row d-flex justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card">
+                <div class="text-left logo p-2 px-5">
+
+                    <img src="~/assets/Aadarsh/images/Minimal Grocery Market Logo.png" width="50" />
+                </div>
+
+                <div class="invoice p-5">
+
+                    <h5>Yay!!! order Confirmed!</h5>
+
+                    <span class="font-weight-bold d-block mt-4"><strong>Hello, @User.Identity.Name</strong></span>
+
+                    <span id="orderConfirmation">You order with order Id: <strong> @Model.OrderId </strong>has been confirmed</span>
+
+                    <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+
+                        <table class="table table-borderless">
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted"><strong>Order Date</strong></span>
+                                            <span>@DateTime.Now.ToString("dd-MM-yyyy")</span>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted"><strong>Order Time</strong></span>
+                                            <span>@DateTime.Now.ToString("HH:mm")</span>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted"><strong>Total Amount</strong></span>
+                                            <span>₹@Model.TotalAmount</span>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted"><strong>Payment</strong></span>
+                                            <span>Success</span>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

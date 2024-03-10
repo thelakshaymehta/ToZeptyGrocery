@@ -1,0 +1,32 @@
+﻿@model List<ToZeptyUI.Models.CustomerModel>
+
+@{
+    ViewBag.Title = "Customer List";
+}
+
+<h2>Customer List</h2>
+
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th class="text-center text-uppercase">Customer Name</th>
+            <th class="text-center text-uppercase">Action</th>
+            <!-- Add other columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td class="text-center">@customer.FirstName @customer.LastName</td>
+                <td class="text-center">
+                    <div class="btn-group" role="group">
+                        <a href="@Url.Action("ViewOrderedProducts", "Admin", new { customerId = customer.Id })" class="btn btn-success">View Order</a>
+                        <a  style=" margin-left: 7px;;" href="@Url.Action("ViewCustomerDetails", "Admin", new { customerId = customer.Id })" class="btn btn-primary">View Profile</a>
+                    </div>
+                </td>
+                <!-- Add other columns as needed -->
+            </tr>
+        }
+    </tbody>
+</table>

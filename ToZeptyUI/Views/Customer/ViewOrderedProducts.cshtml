@@ -1,0 +1,80 @@
+﻿@model List<ToZeptyUI.Models.OrderDetailsViewModel>
+
+@{
+    ViewBag.Title = "View Ordered Products";
+}
+
+<style>
+    .show-btn-row {
+        background-color: #f5f5f5;
+    }
+
+    .show-btn {
+        margin-top: 10px;
+    }
+
+    .delete-order-form {
+        display: inline;
+    }
+</style>
+
+<h2>Ordered Products List</h2>
+<table id="OrderTable" class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.GroupBy(o => o.OrderId))
+        {
+            var isFirstRow = true; // Flag to track if it's the first row for the order
+            foreach (var product in order)
+            {
+                <tr class="@(isFirstRow ? "parent-row" : "child-row order-" + order.Key)">
+                    <td>@product.OrderId</td>
+                    <td>@product.OrderDate.ToShortDateString()</td>
+                    <td>@product.ProductName</td>
+                    <td class="text-center">@product.Quantity</td>
+                    <td>@product.Price</td>
+                    <td>@(product.Quantity * product.Price)</td>
+                </tr>
+                isFirstRow = false; // Update the flag after the first row
+            }
+            <tr class="show-btn-row">
+                <td colspan="7">
+                    <button class="show-btn btn btn-dark" data-order-id="@order.Key">Expand</button>
+
+                    
+                        <form action="@Url.Action("DeleteOrder", "Customer")" method="post" class="delete-order-form">
+                            <input type="hidden" name="orderId" value="@order.Key" />
+                            <button style="margin-top:1%;" type="submit" class="btn btn-danger">Cancel Order</button>
+                        </form>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.child-row').hide(); // Hide all child rows by default
+            $('.show-btn').click(function () {
+                var orderId = $(this).data('order-id');
+                $('.child-row.order-' + orderId).toggle(); // Toggle visibility of child rows with the same order ID
+                // Change button text based on visibility
+                $(this).text(function (_, text) {
+                    return text === "Expand" ? "Close" : "Expand";
+                });
+            });
+        });
+    </script>
+}

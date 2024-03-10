@@ -1,0 +1,68 @@
+﻿@model ToZeptyUI.Models.AddressViewModel
+
+<div class="container col-12 pt-1">
+    <h2 class="p-3 ps-0 ">Delivery Address</h2>
+
+    @using (Html.BeginForm("SaveAddress", "Address", FormMethod.Post, new { id = "addressForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row mb-1">
+            <div class="col-2">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Street)
+                    @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City)
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.State)
+                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-2">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostalCode)
+                    @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Country)
+                    @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="col-3 mt-3">
+                <div class="form-group">
+                </div>
+     <button type="submit" id="submitAddressButton" class="btn btn-outline-warning">Submit Address</button>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function disableButton() {
+            $('#submitAddressButton').prop('disabled', true);
+        }
+    </script>
+}

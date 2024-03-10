@@ -1,0 +1,163 @@
+﻿@model ToZeptyUI.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "Place Order";
+}
+<div class="container">
+    <h3>Order Summary</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detail in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@detail.ProductName</td>
+                    <td>@detail.Quantity</td>
+                    <td>@detail.Price</td>
+                    <td>@detail.Subtotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.Addresses != null && Model.Addresses.Any())
+    {
+        <h4 class="ms-3">Saved Addresses</h4>
+        <div class="card-deck col-12">
+            @foreach (var savedAddress in Model.Addresses)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Address</h5>
+                        <p class="card-text">
+                            @savedAddress.Street, @savedAddress.City, @savedAddress.State, @savedAddress.PostalCode
+                        </p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="selectedAddressId" value="@savedAddress.Id" id="address_@savedAddress.Id">
+                            <label class="form-check-label" for="address_@savedAddress.Id">
+                                Select Address
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="btn btn-outline-primary ms-3 mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Add New Address
+        </button>
+        <div class="collapse" id="collapseExample">
+            @Html.Partial("_Address", new ToZeptyUI.Models.AddressViewModel())
+        </div>
+    }
+    else
+    {
+        <div id="newAddressForm">
+            @*<h4>Add New Address</h4>*@
+            @Html.Partial("_Address", new ToZeptyUI.Models.AddressViewModel())
+        </div>
+    }
+
+
+    <p class="ms-3">Total Amount: &#8377;@Model.TotalAmount</p>
+
+    <div class="mt-3">
+        <label for="paymentMethod">Payment Method:</label>
+        <select id="paymentMethod" class="form-select">
+            <option selected disabled>Select Payment Method</option>
+            <option value="cash">Cash on Delivery</option>
+            <option value="card">Card</option>
+        </select>
+    </div>
+
+    <button id="continueButton" class="btn btn-outline-primary mt-3" disabled>Continue</button>
+    <form id="placeOrderForm" class="ms-3" method="post" action="@Url.Action("OrderConfirm", "Customer")">
+        @Html.AntiForgeryToken()
+
+        @if (Model.CustId != Convert.ToInt32(null))
+        {
+            <input type="hidden" name="customerId" value="@Model.CustId" />
+        }
+
+    </form>
+</div>
+
+<!-- Modal for card payment details -->
+<div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="cardModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cardModalLabel">Enter Card Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for card details -->
+                <form id="cardDetailsForm">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryMonth">Expiry Month</label>
+                        <input type="text" class="form-control" id="expiryMonth" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryYear">Expiry Year</label>
+                        <input type="text" class="form-control" id="expiryYear" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#paymentMethod').change(function () {
+                if ($(this).val() !== null) {
+                    $('#continueButton').prop('disabled', false);
+                } else {
+                    $('#continueButton').prop('disabled', true);
+                }
+            });
+
+            $('#continueButton').click(function () {
+                var paymentMethod = $('#paymentMethod').val();
+                if (paymentMethod === 'cash') {
+                    // Proceed with the order
+                    $('#placeOrderForm').submit();
+                } else if (paymentMethod === 'card') {
+                    // Show modal for card payment details
+                    $('#cardModal').modal('show');
+                }
+            });
+
+            // Form submission for card details
+            $('#cardDetailsForm').submit(function (e) {
+                e.preventDefault();
+                // Handle card details submission
+                // Once card details are submitted, you can proceed with the order
+                $('#cardModal').modal('hide');
+                $('#placeOrderForm').submit();
+            });
+        });
+    </script>
+}

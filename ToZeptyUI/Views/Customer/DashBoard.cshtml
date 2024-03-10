@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_layoutcutomer.cshtml";
+    var userId = (int?)Session["UserId"];
+}
+
+<section class="row mb-4" aria-labelledby="aspnetTitle">
+    <h1 id="title">Welcome @User.Identity.Name!</h1>
+    <h2 class="lead"></h2>
+</section>
+
+<div class="row">
+    <section class="col-md-4 mb-4" aria-labelledby="gettingStartedTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/024/022/993/original/food-products-on-shop-shelf-supermarket-shopping-shelves-food-store-showcase-and-choice-packed-meal-products-sale-illustration-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("Index", "Customer", new { })" class="btn btn-primary">Product</a>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-4 mb-4" aria-labelledby="librariesTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/000/154/190/large_2x/shopping-grocery-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("ViewCart", "Customer",new { customerId = userId }, null)" class="btn btn-primary">Cart</a>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-4 mb-4" aria-labelledby="hostingTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/001/223/242/non_2x/online-order-payment-process-with-tablet-vector.jpg" class="card-img-top" alt="..."   />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("ViewOrderedProducts", "Customer")" class="btn btn-primary">Orders</a>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-4 mb-4" aria-labelledby="hostingTitle">
+        <div class="card" style="width: 18rem;">
+            <img src="https://static.vecteezy.com/system/resources/previews/004/865/861/non_2x/digital-profile-analysis-for-business-professional-on-hiring-new-employee-free-vector.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <a href="@Url.Action("ViewProfile", "Customer", new { customerId = userId }, null)" class="btn btn-primary">Profile</a>
+            </div>
+        </div>
+    </section>
+</div>
+

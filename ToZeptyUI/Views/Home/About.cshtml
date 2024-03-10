@@ -1,0 +1,287 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+
+
+<head>
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="~/assets/Aadarsh/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+
+
+    <link href="~/assets/Aadarsh/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/assets/Aadarsh/css/font-awesome.css" rel="stylesheet" />
+    <!--pop-up-box-->
+
+    <link href="~/assets/Aadarsh/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//pop-up-box-->
+    <!-- price range -->
+    <link href="~/assets/Aadarsh/css/jquery-ui1.css" rel="stylesheet" type="text/css" />
+
+    <!-- fonts -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+
+</head>
+<body>
+    <!-- banner-2 -->
+    <div class="page-head_agile_info_w3l">
+
+    </div>
+    <!-- //banner-2 -->
+    <!-- page -->
+    <div class="services-breadcrumb">
+        <div class="agile_inner_breadcrumb">
+            <div class="container">
+                <ul class="w3_short">
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">Home</a>
+                        <i>|</i>
+                    </li>
+                    <li>About Us</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //page -->
+    <!-- about page -->
+    <!-- welcome -->
+    <div class="welcome">
+        <div class="container">
+            <!-- tittle heading -->
+            <h3 class="tittle-w3l">
+                Welcome to our Site
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+            <!-- //tittle heading -->
+            <div class="w3l-welcome-info">
+                <div class="col-sm-6 col-xs-6 welcome-grids">
+                    <div class="welcome-img">
+                        <img src="~/assets/Aadarsh/images/about.jpg" class="img-responsive zoom-img" alt="">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-6 welcome-grids">
+                    <div class="welcome-img">
+
+                        <img src="~/assets/Aadarsh/images/about2.jpg" class="img-responsive zoom-img" alt="">
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="w3l-welcome-text">
+                <p>
+                    Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus
+                    omnis optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.Sed ut perspiciatis unde omnis iste
+                    natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                    et quasi architecto beatae vitae
+                </p>
+                <p>
+                    libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus
+                    omnis optio cumque nihil impedit
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- //welcome -->
+    <!-- video -->
+    <div class="about">
+        <div class="container">
+            <!-- tittle heading -->
+            <h3 class="tittle-w3l">
+                Our Video
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+            <!-- //tittle heading -->
+            <div class="about-tp">
+                <div class="col-md-8 about-agileits-w3layouts-left">
+                    <iframe src="https://player.vimeo.com/video/15520702?color=ffffff&title=0&byline=0"></iframe>
+                </div>
+                <div class="col-md-4 about-agileits-w3layouts-right">
+                    <div class="img-video-about">
+                        <img src="~/assets/Aadarsh/images/videoimg2.png" alt="">
+                    </div>
+                    <h4>Grocery Shoppy</h4>
+                    <p>No.1 Leading E-commerce marketplace with over 70 million Products</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!-- //video-->
+    <!-- //about page -->
+    <!-- newsletter -->
+    <div class="footer-top">
+        <div class="container-fluid">
+            <div class="col-xs-8 agile-leftmk">
+                <h2>Get your Groceries delivered from local stores</h2>
+                <p>Free Delivery on your first order!</p>
+                <form action="#" method="post">
+                    <input type="email" placeholder="E-mail" name="email" required="">
+                    <input type="submit" value="Subscribe">
+                </form>
+                <div class="newsform-w3l">
+                    <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="col-xs-4 w3l-rightmk">
+                <img src="~/assets/Aadarsh/images/tab3.png" alt=" ">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //newsletter -->
+    <!-- ~/assets/Aadarsh/js-files -->
+    <!-- jquery -->
+    <script src="~/assets/Aadarsh/js/jquery-2.1.4.min.js"></script>
+    <!-- //jquery -->
+    <!-- popup modal (for signin & signup)-->
+    <script src="~/assets/Aadarsh/js/jquery.magnific-popup.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.popup-with-zoom-anim').magnificPopup({
+                type: 'inline',
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeBtnInside: true,
+                preloader: false,
+                midClick: true,
+                removalDelay: 300,
+                mainClass: 'my-mfp-zoom-in'
+            });
+
+        });</script>
+    <!-- Large modal -->
+    <!-- <script>
+        $('#').modal('show');
+    </script> -->
+    <!-- //popup modal (for signin & signup)-->
+    <!-- cart-js -->
+    <script src="~/assets/Aadarsh/js/minicart.js"></script>
+    <script>
+        paypalm.minicartk.render(); //use only unique class names other than paypal1.minicart1.Also Replace same class name in css and minicart.min.js
+
+        paypalm.minicartk.cart.on('checkout', function (evt) {
+            var items = this.items(),
+                len = items.length,
+                total = 0,
+                i;
+
+            // Count the number of each item in the cart
+            for (i = 0; i < len; i++) {
+                total += items[i].get('quantity');
+            }
+
+            if (total < 3) {
+                alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+                evt.preventDefault();
+            }
+        });</script>
+    <!-- //cart-js -->
+    <!-- password-script -->
+    <script>
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }</script>
+    <!-- //password-script -->
+    <!-- smoothscroll -->
+    <script src="~/assets/Aadarsh/js/SmoothScroll.min.js"></script>
+
+    <!-- //smoothscroll -->
+    <!-- start-smooth-scrolling -->
+    <script src="~/assets/Aadarsh/js/move-top.js"></script>
+    <script src="~/assets/Aadarsh/js/easing.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });</script>
+    <!-- //end-smooth-scrolling -->
+    <!-- smooth-scrolling-of-move-up -->
+    <script>
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            */
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });</script>
+    <!-- //smooth-scrolling-of-move-up -->
+    <!-- for bootstrap working -->
+    <script src="~/assets/Aadarsh/js/bootstrap.js"></script>
+    <!-- //for bootstrap working -->
+    <!-- //js-files -->
+
+</body>
+
+
+<footer style="margin:0px">
+
+    <div class="foot">
+        <p> Thank you for choosing ToZepty for your grocery shopping needs! We're committed to making your life easier and healthier If you have any questions, suggestions, or feedback, please don't hesitate to reach out. Happy shopping!</p>
+        <p> &copy; 20234 ToZepty. All rights reserved.</p>
+    </div>
+</footer>
+
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        function disableBack() {
+            history.pushState(null, null, location.href);
+            history.replaceState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+        }
+
+        // Call the disableBack function when the page is loaded
+        window.onload = function () {
+            disableBack();
+            console.log('Page loaded successfully'); // Check for this log in the browser console
+        };
+    </script>
+}
+
+
+

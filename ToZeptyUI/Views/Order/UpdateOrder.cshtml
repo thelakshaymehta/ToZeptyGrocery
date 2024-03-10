@@ -1,0 +1,45 @@
+﻿@model List<ToZeptyUI.Models.UpdateOrderStatusModel>
+
+<div class="container d-flex justify-content-center mt-5">
+    <!-- Single Card View for All Products -->
+    <div class="card col-4">
+        <div class="card-body">
+            <h4 class="text-center">Update Order</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @foreach (var product in Model)
+            {
+                <p class="card-text font-italic font-weight-bold mb-1">@product.ProductName - Quantity: @product.Quantity</p>
+            }
+            <form id="updateOrderForm" method="post">
+                <div class="form-group mt-4">
+                    <select class="form-control w-75" name="status" id="status">
+                        <option value="1">Preparing</option>
+                        <option value="2">Packing</option>
+                        <option value="3">Delivery</option>
+                        <option value="4">Delivered</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-outline-success">Update Status</button>
+                <a href="#" class="btn btn-outline-secondary mt-0">Back</a>
+                <!-- Add hidden input for orderId -->
+
+                <input type="hidden" name="orderId" value="@Model.First().OrderId" />
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#status').change(function () {
+                var selectedStatus = $(this).val();
+                var orderId = $('input[name="orderId"]').val();
+                var actionUrl = '@Url.Action("UpdateOrderStatus", "Order")' + '?orderId=' + orderId + '&status=' + selectedStatus;
+                $('#updateOrderForm').attr('action', actionUrl);
+            });
+        });
+    </script>
+}
