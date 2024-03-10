@@ -23,20 +23,14 @@
                         string statusText = string.Empty;
                         switch (order.OrderStatus)
                         {
-                            case 1:
-                                statusText = "Preparing";
-                                break;
-                            case 2:
-                                statusText = "Packing";
-                                break;
-                            case 3:
-                                statusText = "Out for Delivery";
-                                break;
-                            case 4:
+                           case 2:
                                 statusText = "Delivered";
                                 break;
+                            case 3:
+                                statusText = "Packing";
+                                break;
                             default:
-                                statusText = "Unknown";
+                                statusText = "Please update it ";
                                 break;
                         }
                     }

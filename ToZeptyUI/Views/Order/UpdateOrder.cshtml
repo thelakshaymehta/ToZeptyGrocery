@@ -12,14 +12,14 @@
             <form id="updateOrderForm" method="post">
                 <div class="form-group mt-4">
                     <select class="form-control w-75" name="status" id="status">
-                        <option value="1">Preparing</option>
-                        <option value="2">Packing</option>
-                        <option value="3">Delivery</option>
-                        <option value="4">Delivered</option>
+                        <option value="1">Please select the status </option>
+                        <option value="2">Delivered</option>
+                        <option value="3">Packing</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-outline-success">Update Status</button>
                 <a href="#" class="btn btn-outline-secondary mt-0">Back</a>
+
                 <input type="hidden" name="orderId" value="@Model.First().OrderId" />
 
             </form>
@@ -34,7 +34,9 @@
             $('#status').change(function () {
                 var selectedStatus = $(this).val();
                 var orderId = $('input[name="orderId"]').val();
+
                 var actionUrl = '@Url.Action("UpdateOrderStatus", "Order")' + '?orderId=' + orderId + '&status=' + selectedStatus;
+
                 $('#updateOrderForm').attr('action', actionUrl);
             });
         });
